@@ -15,6 +15,8 @@ resource "nexus_repository_docker_hosted" "acceptance" {
 		subdomain = "{{ .Docker.Subdomain }}"
 {{- end }}
 		v1_enabled = "{{ .Docker.V1Enabled }}"
+{{- if .Docker.PathEnabled }}
+		path_based_routing = "{{ .Docker.PathEnabled }}"
 	}
 ` + TemplateStringNameOnline +
 		TemplateStringCleanup +
@@ -36,6 +38,8 @@ resource "nexus_repository_docker_group" "acceptance" {
 		subdomain = "{{ .Docker.Subdomain }}"
 {{- end }}
 		v1_enabled = "{{ .Docker.V1Enabled }}"
+{{- if .Docker.PathEnabled }}
+		path_based_routing = "{{ .Docker.PathEnabled }}"
 	}
 	depends_on = [
 		nexus_repository_docker_hosted.acceptance
@@ -56,6 +60,8 @@ resource "nexus_repository_docker_proxy" "acceptance" {
 		subdomain = "{{ .Docker.Subdomain }}"
 {{- end }}
 		v1_enabled = "{{ .Docker.V1Enabled }}"
+{{- if .Docker.PathEnabled }}
+		path_based_routing = "{{ .Docker.PathEnabled }}"
 	}
 
 	docker_proxy {
