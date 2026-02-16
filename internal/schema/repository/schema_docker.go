@@ -81,7 +81,7 @@ var (
 				},
 				"path_based_routing": {
 					Description: "Enables path based routing",
-					Optional:    true,
+					Computed:    true,
 					Type:        schema.TypeBool,
 				},
 			},

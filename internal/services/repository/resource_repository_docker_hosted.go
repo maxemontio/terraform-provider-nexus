@@ -52,7 +52,6 @@ func getDockerHostedRepositoryFromResourceData(resourceData *schema.ResourceData
 		Docker: repository.Docker{
 			ForceBasicAuth: dockerConfig["force_basic_auth"].(bool),
 			V1Enabled:      dockerConfig["v1_enabled"].(bool),
-			PathEnabled:    dockerConfig["path_based_routing"].(bool),
 		},
 	}
 
@@ -76,6 +75,10 @@ func getDockerHostedRepositoryFromResourceData(resourceData *schema.ResourceData
 		if subdomain.(string) != "" {
 			repo.Docker.Subdomain = tools.GetStringPointer(subdomain.(string))
 		}
+	}
+
+	if pathEnabled, ok := dockerConfig["path_based_routing"]; ok {
+		repo.Docker.PathEnabled = tools.GetBoolPointer(pathEnabled.(bool))
 	}
 
 	cleanupList := resourceData.Get("cleanup").([]interface{})
